@@ -219,6 +219,7 @@ class Freezed {
     this.makeCollectionsUnmodifiable,
     this.addImplicitFinal = true,
     this.genericArgumentFactories = false,
+    this.finalize = false,
   });
 
   /// Decode the options from a build.yaml
@@ -475,6 +476,46 @@ class Freezed {
   /// }
   /// ```
   final bool genericArgumentFactories;
+
+  /// Whether to add `sealed`/`final` modifiers to the generated classes.
+  ///
+  /// Defaults to false.
+  ///
+  /// This makes the generated classes `sealed` and `final` by default,
+  /// so when using them in a switch statement, the analzyer will warn you
+  /// if you try to match agains a pattern that will never match the type.
+  ///
+  /// When configuring a class with `finalize: true`, it also needs to be
+  /// `sealed` and have a private no-args constructor.
+  ///
+  /// ```dart
+  /// @Freezed(finalize: true)
+  /// sealed class Foo with _$Foo {
+  ///   const Foo._();
+  ///   const factory Foo() = _Foo;
+  /// }
+  ///
+  /// @Freezed(finalize: true)
+  /// sealed class Bar with _$Bar {
+  ///   const Bar._();
+  ///   const factory Bar() = _Bar;
+  /// }
+  ///
+  /// void main() {
+  ///   switch (Foo()) {
+  ///     // The analyzer will yield a warning that this case can never match,
+  ///     // because all subclasses of Foo are sealed/final, so it is guaranteed
+  ///     // that instances of type Bar can never also be of type Foo.
+  ///     case Bar():
+  ///       // ...
+  ///       break;
+  ///
+  ///     case Foo():
+  ///       // ...
+  ///       break;
+  ///   }
+  /// ```
+  final bool finalize;
 
   /// Options for customizing the generation of `map` functions
   ///

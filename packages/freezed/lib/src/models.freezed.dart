@@ -1054,6 +1054,7 @@ mixin _$Data {
       throw _privateConstructorUsedError;
   bool get shouldUseExtends => throw _privateConstructorUsedError;
   bool get genericArgumentFactories => throw _privateConstructorUsedError;
+  bool get shouldMarkSealedOrFinal => throw _privateConstructorUsedError;
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   $DataCopyWith<Data> get copyWith => throw _privateConstructorUsedError;
@@ -1080,7 +1081,8 @@ abstract class $DataCopyWith<$Res> {
       GenericsDefinitionTemplate genericsDefinitionTemplate,
       GenericsParameterTemplate genericsParameterTemplate,
       bool shouldUseExtends,
-      bool genericArgumentFactories});
+      bool genericArgumentFactories,
+      bool shouldMarkSealedOrFinal});
 
   $MapConfigCopyWith<$Res> get map;
   $WhenConfigCopyWith<$Res> get when;
@@ -1115,6 +1117,7 @@ class _$DataCopyWithImpl<$Res, $Val extends Data>
     Object? genericsParameterTemplate = null,
     Object? shouldUseExtends = null,
     Object? genericArgumentFactories = null,
+    Object? shouldMarkSealedOrFinal = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -1181,6 +1184,10 @@ class _$DataCopyWithImpl<$Res, $Val extends Data>
           ? _value.genericArgumentFactories
           : genericArgumentFactories // ignore: cast_nullable_to_non_nullable
               as bool,
+      shouldMarkSealedOrFinal: null == shouldMarkSealedOrFinal
+          ? _value.shouldMarkSealedOrFinal
+          : shouldMarkSealedOrFinal // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -1224,7 +1231,8 @@ abstract class _$$DataImplCopyWith<$Res> implements $DataCopyWith<$Res> {
       GenericsDefinitionTemplate genericsDefinitionTemplate,
       GenericsParameterTemplate genericsParameterTemplate,
       bool shouldUseExtends,
-      bool genericArgumentFactories});
+      bool genericArgumentFactories,
+      bool shouldMarkSealedOrFinal});
 
   @override
   $MapConfigCopyWith<$Res> get map;
@@ -1258,6 +1266,7 @@ class __$$DataImplCopyWithImpl<$Res>
     Object? genericsParameterTemplate = null,
     Object? shouldUseExtends = null,
     Object? genericArgumentFactories = null,
+    Object? shouldMarkSealedOrFinal = null,
   }) {
     return _then(_$DataImpl(
       name: null == name
@@ -1324,6 +1333,10 @@ class __$$DataImplCopyWithImpl<$Res>
           ? _value.genericArgumentFactories
           : genericArgumentFactories // ignore: cast_nullable_to_non_nullable
               as bool,
+      shouldMarkSealedOrFinal: null == shouldMarkSealedOrFinal
+          ? _value.shouldMarkSealedOrFinal
+          : shouldMarkSealedOrFinal // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -1347,7 +1360,8 @@ class _$DataImpl implements _Data {
       required this.genericsDefinitionTemplate,
       required this.genericsParameterTemplate,
       required this.shouldUseExtends,
-      required this.genericArgumentFactories})
+      required this.genericArgumentFactories,
+      required this.shouldMarkSealedOrFinal})
       : assert(constructors.isNotEmpty),
         _concretePropertiesName = concretePropertiesName,
         _constructors = constructors;
@@ -1397,10 +1411,12 @@ class _$DataImpl implements _Data {
   final bool shouldUseExtends;
   @override
   final bool genericArgumentFactories;
+  @override
+  final bool shouldMarkSealedOrFinal;
 
   @override
   String toString() {
-    return 'Data(name: $name, unionKey: $unionKey, generateCopyWith: $generateCopyWith, generateEqual: $generateEqual, generateToString: $generateToString, map: $map, when: $when, generateFromJson: $generateFromJson, generateToJson: $generateToJson, makeCollectionsImmutable: $makeCollectionsImmutable, concretePropertiesName: $concretePropertiesName, constructors: $constructors, genericsDefinitionTemplate: $genericsDefinitionTemplate, genericsParameterTemplate: $genericsParameterTemplate, shouldUseExtends: $shouldUseExtends, genericArgumentFactories: $genericArgumentFactories)';
+    return 'Data(name: $name, unionKey: $unionKey, generateCopyWith: $generateCopyWith, generateEqual: $generateEqual, generateToString: $generateToString, map: $map, when: $when, generateFromJson: $generateFromJson, generateToJson: $generateToJson, makeCollectionsImmutable: $makeCollectionsImmutable, concretePropertiesName: $concretePropertiesName, constructors: $constructors, genericsDefinitionTemplate: $genericsDefinitionTemplate, genericsParameterTemplate: $genericsParameterTemplate, shouldUseExtends: $shouldUseExtends, genericArgumentFactories: $genericArgumentFactories, shouldMarkSealedOrFinal: $shouldMarkSealedOrFinal)';
   }
 
   @override
@@ -1441,7 +1457,10 @@ class _$DataImpl implements _Data {
                 other.shouldUseExtends == shouldUseExtends) &&
             (identical(
                     other.genericArgumentFactories, genericArgumentFactories) ||
-                other.genericArgumentFactories == genericArgumentFactories));
+                other.genericArgumentFactories == genericArgumentFactories) &&
+            (identical(
+                    other.shouldMarkSealedOrFinal, shouldMarkSealedOrFinal) ||
+                other.shouldMarkSealedOrFinal == shouldMarkSealedOrFinal));
   }
 
   @override
@@ -1462,7 +1481,8 @@ class _$DataImpl implements _Data {
       genericsDefinitionTemplate,
       genericsParameterTemplate,
       shouldUseExtends,
-      genericArgumentFactories);
+      genericArgumentFactories,
+      shouldMarkSealedOrFinal);
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -1488,7 +1508,8 @@ abstract class _Data implements Data {
       required final GenericsDefinitionTemplate genericsDefinitionTemplate,
       required final GenericsParameterTemplate genericsParameterTemplate,
       required final bool shouldUseExtends,
-      required final bool genericArgumentFactories}) = _$DataImpl;
+      required final bool genericArgumentFactories,
+      required final bool shouldMarkSealedOrFinal}) = _$DataImpl;
 
   @override
   String get name;
@@ -1522,6 +1543,8 @@ abstract class _Data implements Data {
   bool get shouldUseExtends;
   @override
   bool get genericArgumentFactories;
+  @override
+  bool get shouldMarkSealedOrFinal;
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DataImplCopyWith<_$DataImpl> get copyWith =>
