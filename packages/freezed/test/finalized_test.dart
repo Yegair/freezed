@@ -15,7 +15,7 @@ library main;
 import 'finalized.dart';
 
 void main() {
-  switch (const FinalizedFoo()) {
+  switch (FinalizedFoo()) {
     case FinalizedBar():
       break;
 
@@ -51,7 +51,7 @@ library main;
 import 'finalized.dart';
 
 void main() {
-  switch (const FinalizedMultiple.b()) {
+  switch (FinalizedMultiple.b()) {
     case FinalizedBar():
       break;
 
