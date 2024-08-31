@@ -95,10 +95,6 @@ class FreezedGenerator extends ParserGenerator<GlobalData, Data, Freezed> {
       _assertValidFieldUsage(field, shouldUseExtends: shouldUseExtends);
     }
 
-    if (configs.finalize) {
-      _assertValidFinalizedUsage(declaration);
-    }
-
     final constructorsNeedsGeneration = await _parseConstructorsNeedsGeneration(
       buildStep,
       declaration,
@@ -221,26 +217,6 @@ class FreezedGenerator extends ParserGenerator<GlobalData, Data, Freezed> {
       throw InvalidGenerationSourceError(
         'Final variables require a MyClass._() constructor',
         element: field,
-      );
-    }
-  }
-
-  void _assertValidFinalizedUsage(ClassDeclaration declaration) {
-    if (declaration.sealedKeyword == null) {
-      throw InvalidGenerationSourceError(
-        '@freezed classes configured with [finalize: true] must be sealed',
-        element: declaration.declaredElement,
-      );
-    }
-
-    final hasPrivateConstructor = declaration.constructors.any((ctor) {
-      return ctor.name?.lexeme == '_';
-    });
-
-    if (!hasPrivateConstructor) {
-      throw InvalidGenerationSourceError(
-        '@freezed classes configured with [finalize: true] require a MyClass._() constructor',
-        element: declaration.declaredElement,
       );
     }
   }

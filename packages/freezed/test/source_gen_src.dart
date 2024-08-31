@@ -224,30 +224,3 @@ abstract class AstractClass {
 class _AstractClass implements AstractClass {
   const _AstractClass();
 }
-
-@ShouldThrow(
-  '@freezed classes configured with [finalize: true] must be sealed',
-)
-@Freezed(finalize: true)
-class FinalizedClassWithoutSealedKeyword {
-  FinalizedClassWithoutSealedKeyword._();
-  factory FinalizedClassWithoutSealedKeyword() =
-      _FinalizedClassWithoutSealedKeyword;
-}
-
-class _FinalizedClassWithoutSealedKeyword
-    implements FinalizedClassWithoutSealedKeyword {
-  _FinalizedClassWithoutSealedKeyword();
-}
-
-@ShouldThrow(
-  '@freezed classes configured with [finalize: true] require a MyClass._() constructor',
-)
-@Freezed(finalize: true)
-sealed class FinalizedClassWithoutPrivateConstructor {
-  factory FinalizedClassWithoutPrivateConstructor() =
-      _FinalizedClassWithoutPrivateConstructor;
-}
-
-class _FinalizedClassWithoutPrivateConstructor
-    implements FinalizedClassWithoutPrivateConstructor {}
