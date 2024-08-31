@@ -146,7 +146,7 @@ class FreezedGenerator extends ParserGenerator<GlobalData, Data, Freezed> {
       genericsParameterTemplate: GenericsParameterTemplate.fromGenericElement(
         declaration.declaredElement!.typeParameters,
       ),
-      shouldMarkSealedOrFinal: configs.finalize,
+      shouldMarkSealedOrFinal: configs.finalize ?? false,
     );
   }
 
@@ -599,7 +599,11 @@ class FreezedGenerator extends ParserGenerator<GlobalData, Data, Freezed> {
         orElse: () => _buildYamlConfigs.fromJson,
       ),
       addImplicitFinal: annotation.getField('addImplicitFinal')!.toBoolValue()!,
-      finalize: annotation.getField('finalize')!.toBoolValue()!,
+      finalize: annotation.decodeField(
+        'finalize',
+        decode: (obj) => obj.toBoolValue(),
+        orElse: () => _buildYamlConfigs.finalize,
+      ),
       map: annotation.decodeField(
         'map',
         decode: (obj) {

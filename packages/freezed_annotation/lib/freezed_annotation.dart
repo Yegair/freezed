@@ -219,7 +219,7 @@ class Freezed {
     this.makeCollectionsUnmodifiable,
     this.addImplicitFinal = true,
     this.genericArgumentFactories = false,
-    this.finalize = false,
+    this.finalize,
   });
 
   /// Decode the options from a build.yaml
@@ -515,7 +515,7 @@ class Freezed {
   ///       break;
   ///   }
   /// ```
-  final bool finalize;
+  final bool? finalize;
 
   /// Options for customizing the generation of `map` functions
   ///
