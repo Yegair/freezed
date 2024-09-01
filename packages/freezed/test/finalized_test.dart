@@ -81,4 +81,65 @@ void main() {
       expect(error.errorCode.name, 'PATTERN_NEVER_MATCHES_VALUE_TYPE');
     });
   });
+
+  group('disabled (finalize: false)', () {
+    test('finalize is disabled by default', () async {
+      final main = await resolveSources(
+        {
+          'freezed|test/integration/main.dart': r'''
+library main;
+import 'finalized.dart';
+
+void main() {
+  switch (FinalizedDisabledFoo()) {
+    case FinalizedDisabledBar():
+      break;
+
+    case FinalizedDisabledFoo():
+      break;
+  }
+}
+''',
+        },
+        (r) => r.findLibraryByName('main'),
+      );
+
+      final errorResult = await main!.session
+          .getErrors('/freezed/test/integration/main.dart') as ErrorsResult;
+
+      // the absence of a warning means that the generated subclasses of FinalizedDisabled
+      // or not sealed/final, and therefore it is disabled by default
+      expect(errorResult.errors, isEmpty);
+    });
+  });
+  group('default config', () {
+    test('finalize is disabled by default', () async {
+      final main = await resolveSources(
+        {
+          'freezed|test/integration/main.dart': r'''
+library main;
+import 'finalized.dart';
+
+void main() {
+  switch (FinalizedDefaultFoo()) {
+    case FinalizedDefaultBar():
+      break;
+
+    case FinalizedDefaultFoo():
+      break;
+  }
+}
+''',
+        },
+        (r) => r.findLibraryByName('main'),
+      );
+
+      final errorResult = await main!.session
+          .getErrors('/freezed/test/integration/main.dart') as ErrorsResult;
+
+      // the absence of a warning means that the generated subclasses of FinalizedDefault
+      // or not sealed/final, and therefore it is disabled by default
+      expect(errorResult.errors, isEmpty);
+    });
+  });
 }

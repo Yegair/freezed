@@ -515,6 +515,7 @@ class Freezed {
   ///       break;
   ///   }
   /// ```
+  @JsonKey(defaultValue: false)
   final bool? finalize;
 
   /// Options for customizing the generation of `map` functions

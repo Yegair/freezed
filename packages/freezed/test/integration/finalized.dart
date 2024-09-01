@@ -18,3 +18,15 @@ sealed class FinalizedMultiple with _$FinalizedMultiple {
   factory FinalizedMultiple.b() = FinalizedMultipleB;
   factory FinalizedMultiple.c() = FinalizedMultipleC;
 }
+
+@Freezed()
+sealed class FinalizedDefault with _$FinalizedDefault {
+  factory FinalizedDefault.foo() = FinalizedDefaultFoo;
+  factory FinalizedDefault.bar() = FinalizedDefaultBar;
+}
+
+@Freezed(finalize: false)
+sealed class FinalizedDisabled with _$FinalizedDisabled {
+  factory FinalizedDisabled.foo() = FinalizedDisabledFoo;
+  factory FinalizedDisabled.bar() = FinalizedDisabledBar;
+}

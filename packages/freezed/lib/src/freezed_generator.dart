@@ -146,7 +146,7 @@ class FreezedGenerator extends ParserGenerator<GlobalData, Data, Freezed> {
       genericsParameterTemplate: GenericsParameterTemplate.fromGenericElement(
         declaration.declaredElement!.typeParameters,
       ),
-      shouldMarkSealedOrFinal: configs.finalize ?? false,
+      shouldMarkSealedOrFinal: configs.finalize!,
     );
   }
 
