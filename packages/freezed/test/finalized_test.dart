@@ -4,13 +4,14 @@ import 'package:build_test/build_test.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('single constructor', () {
-    test(
-        'causes pattern_never_matches_value_type warning when trying to match on pattern that can never match',
-        () async {
-      final main = await resolveSources(
-        {
-          'freezed|test/integration/main.dart': r'''
+  group('marks generated classes as final and sealed', () {
+    group('single constructor', () {
+      test(
+          'causes pattern_never_matches_value_type warning when trying to match on pattern that can never match',
+          () async {
+        final main = await resolveSources(
+          {
+            'freezed|test/integration/main.dart': r'''
 library main;
 import 'finalized.dart';
 
@@ -24,29 +25,29 @@ void main() {
   }
 }
 ''',
-        },
-        (r) => r.findLibraryByName('main'),
-      );
+          },
+          (r) => r.findLibraryByName('main'),
+        );
 
-      final errorResult = await main!.session
-          .getErrors('/freezed/test/integration/main.dart') as ErrorsResult;
+        final errorResult = await main!.session
+            .getErrors('/freezed/test/integration/main.dart') as ErrorsResult;
 
-      expect(errorResult.errors, hasLength(1));
+        expect(errorResult.errors, hasLength(1));
 
-      final [error] = errorResult.errors;
+        final [error] = errorResult.errors;
 
-      expect(error.errorCode.errorSeverity, ErrorSeverity.WARNING);
-      expect(error.errorCode.name, 'PATTERN_NEVER_MATCHES_VALUE_TYPE');
+        expect(error.errorCode.errorSeverity, ErrorSeverity.WARNING);
+        expect(error.errorCode.name, 'PATTERN_NEVER_MATCHES_VALUE_TYPE');
+      });
     });
-  });
 
-  group('multiple constructors', () {
-    test(
-        'causes pattern_never_matches_value_type warning when trying to match on pattern that can never match',
-        () async {
-      final main = await resolveSources(
-        {
-          'freezed|test/integration/main.dart': r'''
+    group('multiple constructors', () {
+      test(
+          'causes pattern_never_matches_value_type warning when trying to match on pattern that can never match',
+          () async {
+        final main = await resolveSources(
+          {
+            'freezed|test/integration/main.dart': r'''
 library main;
 import 'finalized.dart';
 
@@ -66,80 +67,20 @@ void main() {
   }
 }
 ''',
-        },
-        (r) => r.findLibraryByName('main'),
-      );
+          },
+          (r) => r.findLibraryByName('main'),
+        );
 
-      final errorResult = await main!.session
-          .getErrors('/freezed/test/integration/main.dart') as ErrorsResult;
+        final errorResult = await main!.session
+            .getErrors('/freezed/test/integration/main.dart') as ErrorsResult;
 
-      expect(errorResult.errors, hasLength(1));
+        expect(errorResult.errors, hasLength(1));
 
-      final [error] = errorResult.errors;
+        final [error] = errorResult.errors;
 
-      expect(error.errorCode.errorSeverity, ErrorSeverity.WARNING);
-      expect(error.errorCode.name, 'PATTERN_NEVER_MATCHES_VALUE_TYPE');
-    });
-  });
-
-  group('disabled (finalize: false)', () {
-    test('finalize is disabled by default', () async {
-      final main = await resolveSources(
-        {
-          'freezed|test/integration/main.dart': r'''
-library main;
-import 'finalized.dart';
-
-void main() {
-  switch (FinalizedDisabledFoo()) {
-    case FinalizedDisabledBar():
-      break;
-
-    case FinalizedDisabledFoo():
-      break;
-  }
-}
-''',
-        },
-        (r) => r.findLibraryByName('main'),
-      );
-
-      final errorResult = await main!.session
-          .getErrors('/freezed/test/integration/main.dart') as ErrorsResult;
-
-      // the absence of a warning means that the generated subclasses of FinalizedDisabled
-      // or not sealed/final, and therefore it is disabled by default
-      expect(errorResult.errors, isEmpty);
-    });
-  });
-  group('default config', () {
-    test('finalize is disabled by default', () async {
-      final main = await resolveSources(
-        {
-          'freezed|test/integration/main.dart': r'''
-library main;
-import 'finalized.dart';
-
-void main() {
-  switch (FinalizedDefaultFoo()) {
-    case FinalizedDefaultBar():
-      break;
-
-    case FinalizedDefaultFoo():
-      break;
-  }
-}
-''',
-        },
-        (r) => r.findLibraryByName('main'),
-      );
-
-      final errorResult = await main!.session
-          .getErrors('/freezed/test/integration/main.dart') as ErrorsResult;
-
-      // the absence of a warning means that the generated subclasses of FinalizedDefault
-      // or not sealed/final, and therefore it is disabled by default
-      expect(errorResult.errors, isEmpty);
+        expect(error.errorCode.errorSeverity, ErrorSeverity.WARNING);
+        expect(error.errorCode.name, 'PATTERN_NEVER_MATCHES_VALUE_TYPE');
+      });
     });
   });
 }

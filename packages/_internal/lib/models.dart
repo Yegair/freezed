@@ -102,7 +102,6 @@ class Data with _$Data {
     required GenericsParameterTemplate genericsParameterTemplate,
     required bool shouldUseExtends,
     required bool genericArgumentFactories,
-    required bool shouldMarkSealedOrFinal,
   }) = _Data;
 }
 

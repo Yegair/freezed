@@ -151,7 +151,6 @@ void main() {
       expect(defaultValue.unionValueCase, isNull);
       expect(defaultValue.when, isNull);
       expect(defaultValue.makeCollectionsUnmodifiable, isTrue);
-      expect(defaultValue.finalize, isFalse);
     });
 
     test('.fromJson({map: x})', () {
